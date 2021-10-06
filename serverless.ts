@@ -6,6 +6,7 @@ const serverlessConfiguration: AWS = {
   service: "llst-quoter",
   frameworkVersion: "2",
   configValidationMode: "error",
+  variablesResolutionMode: "20210326",
   custom: {
     esbuild: {
       bundle: true,

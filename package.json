@@ -1,16 +1,19 @@
 {
   "name": "llst-quoter",
   "version": "1.0.0",
-  "description": "Serverless aws-nodejs-typescript template",
+  "description": "Quote from Lesson Learned in Software Testing",
   "main": "serverless.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "invoke:local": "serverless invoke local -f postLlstQuote",
+    "deploy": "serverless deploy function -f postLlstQuote"
   },
   "engines": {
     "node": ">=14.15.0"
   },
   "dependencies": {
-    "@notionhq/client": "0.3.3"
+    "@notionhq/client": "0.3.3",
+    "@slack/web-api": "^6.4.0"
   },
   "devDependencies": {
     "@serverless/typescript": "^2.23.0",

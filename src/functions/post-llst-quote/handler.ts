@@ -1,5 +1,6 @@
 import { Notion } from "../../libs/notion";
 import { LLST_COUNT } from "../../libs/llst";
+import { WebClient } from "@slack/web-api";
 
 export const main = async (): Promise<void> => {
   const llstCount = LLST_COUNT;
@@ -9,12 +10,14 @@ export const main = async (): Promise<void> => {
     process.env.NOTION_DATABASE_ID,
     lessonId
   );
-  console.log(`鉄則${lessonId.toString().padStart(3, "0")}: ${lesson}`);
 
-  // const slackComment = { body: lesson };
-  // const slack = new Slack(auth);
-  // slack.postComment();
+  const web = new WebClient(process.env.SLACK_TOKEN);
+  const channel = process.env.SLACK_CHANNEL;
+  const res = await web.chat.postMessage({
+    channel,
+    text: `鉄則${lessonId.toString().padStart(3, "0")}: ${lesson}`,
+  });
+  console.log(`Message sent: ${res.ts}`);
 
-  console.log("Done!");
   return;
 };

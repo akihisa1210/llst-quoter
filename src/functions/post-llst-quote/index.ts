@@ -8,6 +8,8 @@ const config: ServerlessFunctionConfiguration = {
   environment: {
     NOTION_TOKEN: "${ssm:/llst-quoter-notion-token}",
     NOTION_DATABASE_ID: "${ssm:/llst-quoter-notion-database-id}",
+    SLACK_TOKEN: "${ssm:/llst-quoter-slack-token}",
+    SLACK_CHANNEL: "${ssm:/llst-quoter-slack-channel}",
   },
   events: [
     {

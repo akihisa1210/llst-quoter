@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "invoke:local": "serverless invoke local -f postLlstQuote",
-    "deploy": "serverless deploy function -f postLlstQuote"
+    "deploy": "serverless deploy"
   },
   "engines": {
     "node": ">=14.15.0"

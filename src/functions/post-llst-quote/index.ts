@@ -14,7 +14,7 @@ const config: ServerlessFunctionConfiguration = {
   events: [
     {
       schedule: {
-        rate: ["rate(1 day)"],
+        rate: ["cron(0 23 * * ? *)"],
       },
     },
   ],

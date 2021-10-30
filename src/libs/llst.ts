@@ -1,4 +1,4 @@
-export const LLST_COUNT = 54;
+export const LLST_COUNT = 101;
 
 export type Lesson = {
   id: number;

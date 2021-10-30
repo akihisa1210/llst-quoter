@@ -47,6 +47,34 @@ describe("Notion", () => {
               },
             ],
           },
+          ChapterNumber: {
+            id: "aaaa",
+            type: "number",
+            number: 2,
+          },
+          ChapterName: {
+            id: "aaaa",
+            type: "rich_text",
+            rich_text: [
+              {
+                type: "text",
+                text: {
+                  content: "test-chapter-name-2",
+                  link: null,
+                },
+                annotations: {
+                  bold: false,
+                  italic: false,
+                  strikethrough: false,
+                  underline: false,
+                  code: false,
+                  color: "default",
+                },
+                plain_text: "test-chapter-name-2",
+                href: null,
+              },
+            ],
+          },
         },
         url: "https://www.notion.so/1234",
       },
@@ -69,8 +97,13 @@ describe("Notion", () => {
 
     const notion = new Notion("dummy-token");
 
-    const quote = await notion.getQuote("00000000-0000-0000-0000-00000000", 1);
-    expect(quote).toEqual("test-lesson-1");
+    const databaseId = "00000000-0000-0000-0000-00000000";
+
+    const lesson = await notion.getQuote(databaseId, 1);
+    expect(lesson.id).toEqual(1);
+    expect(lesson.lesson).toEqual("test-lesson-1");
+    expect(lesson.chapterNumber).toEqual(2);
+    expect(lesson.chapterName).toEqual("test-chapter-name-2");
 
     mockServer.close();
   });

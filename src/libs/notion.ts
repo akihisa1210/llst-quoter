@@ -1,6 +1,11 @@
 import { Client } from "@notionhq/client";
 import { DatabasesQueryResponse } from "@notionhq/client/build/src/api-endpoints";
-import { TitlePropertyValue } from "@notionhq/client/build/src/api-types";
+import {
+  NumberPropertyValue,
+  RichTextPropertyValue,
+  TitlePropertyValue,
+} from "@notionhq/client/build/src/api-types";
+import { Lesson } from "./llst";
 
 export class Notion {
   private notion: Client;
@@ -9,7 +14,7 @@ export class Notion {
     this.notion = new Client({ auth: token });
   }
 
-  async getQuote(databaseId: string, lessonId: number) {
+  async getQuote(databaseId: string, lessonId: number): Promise<Lesson> {
     const res: DatabasesQueryResponse = await this.notion.databases.query({
       database_id: databaseId,
       filter: {
@@ -28,6 +33,22 @@ export class Notion {
       "Lesson"
     ] as TitlePropertyValue;
     const lesson = lessonProperty.title[0].plain_text;
-    return lesson;
+
+    const chapterNumberProperty = res.results[0].properties[
+      "ChapterNumber"
+    ] as NumberPropertyValue;
+    const chapterNumber = chapterNumberProperty.number;
+
+    const chapterNameProperty = res.results[0].properties[
+      "ChapterName"
+    ] as RichTextPropertyValue;
+    const chapterName = chapterNameProperty.rich_text[0].plain_text;
+
+    return {
+      id: lessonId,
+      lesson,
+      chapterNumber,
+      chapterName,
+    };
   }
 }
